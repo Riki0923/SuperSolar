@@ -9,10 +9,6 @@ async function main() {
   const solar = await Solar.deploy();
 
   console.log("Solar deployed to:", solar.target);
-
-  const interact = await solar.createSolar();
-
-  console.log("New Solar created: ", interact)
 }
 
 main()

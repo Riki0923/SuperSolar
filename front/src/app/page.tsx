@@ -1,12 +1,19 @@
 // app/page.tsx
 "use client";
 import { useAuthModal, useLogout, useSignerStatus, useUser } from "@account-kit/react";
+import { useEffect } from "react";
 
 export default function Home() {
   const user = useUser();
   const { openAuthModal } = useAuthModal();
   const signerStatus = useSignerStatus();
   const { logout } = useLogout();
+
+  useEffect(() => {
+    console.log("user is:", user)
+  
+  }, [user])
+  
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24 gap-4 justify-center text-center">

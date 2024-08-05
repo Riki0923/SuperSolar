@@ -12,4 +12,8 @@ contract Solar {
         return true;
     }
 
+    function getSolar() public view returns (uint256) {
+        return solarId;
+    }
+
 }

@@ -11,6 +11,9 @@ async function main () {
     
     const interact = await solar.createSolar();
     console.log("Interaction successfull")
+
+    const getSolar = await solar.getSolar();
+    console.log("solarNumber is:", getSolar);
 }
 
 main().catch((error) => {
