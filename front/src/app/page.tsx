@@ -2,6 +2,8 @@
 "use client";
 import { useAuthModal, useLogout, useSignerStatus, useUser } from "@account-kit/react";
 import { useEffect } from "react";
+import MyOpSenderComponent from "./userop";
+import Worldcoin from "../app/worldcoin/verify"
 
 export default function Home() {
   const user = useUser();
@@ -33,6 +35,8 @@ export default function Home() {
           Login
         </button>
       )}
+      <MyOpSenderComponent/>
+      <Worldcoin/>
       </div>
     </main>
   );

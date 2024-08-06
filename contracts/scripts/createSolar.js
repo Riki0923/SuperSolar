@@ -9,8 +9,8 @@ async function main () {
     const solar = await Solar.attach(process.env.SOLAR_CONTRACT_ADDRESS);
 
     
-    const interact = await solar.createSolar();
-    console.log("Interaction successfull")
+    // const interact = await solar.createSolar();
+    // console.log("Interaction successfull")
 
     const getSolar = await solar.getSolar();
     console.log("solarNumber is:", getSolar);

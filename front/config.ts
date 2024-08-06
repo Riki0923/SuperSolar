@@ -16,6 +16,7 @@ export const config = createConfig({
   apiKey: "KqHun7oadIUzn1xuiV4xdR5OaWjkPphD",
   chain: baseSepolia,
   ssr: true, // set to false if you're not using server-side rendering
+  policyId: "51dd572f-22f6-4b3d-bfa4-3ffdb4e9571c",
 }, uiConfig);
 
 export const queryClient = new QueryClient();
