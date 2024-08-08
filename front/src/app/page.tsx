@@ -16,8 +16,11 @@ export default function Home() {
   }, [user]);
 
   return (
-      <div className="flex flex-col justify-center items-center">
-        {/* {signerStatus.isInitializing ? (
+    <div className="flex flex-col justify-center items-center mt-10">
+      <div className="text-5xl font-semibold text-semantic-accent-content">
+        Welcome to SuperSolar <span className="ml-2">☀️</span>
+      </div>
+      {/* {signerStatus.isInitializing ? (
           <>Loading...</>
         ) : user ? (
           <div className="flex flex-col gap-2 p-2 mt-10">
@@ -33,7 +36,7 @@ export default function Home() {
           </button>
         )}
         <MyOpSenderComponent /> */}
-        <Worldcoin/>
-      </div>
+      {/* <Worldcoin/> */}
+    </div>
   );
 }
