@@ -1,9 +1,9 @@
-// app/page.tsx
 "use client";
+
 import { useAuthModal, useLogout, useSignerStatus, useUser } from "@account-kit/react";
 import { useEffect } from "react";
 import MyOpSenderComponent from "./userop";
-import Worldcoin from "../app/worldcoin/verify"
+import Worldcoin from "./worldcoin/page";
 
 export default function Home() {
   const user = useUser();
@@ -13,31 +13,27 @@ export default function Home() {
 
   useEffect(() => {
     console.log("user is:", user)
-  
-  }, [user])
-  
+  }, [user]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24 gap-4 justify-center text-center">
-      <div>
-      {signerStatus.isInitializing ? (
-        <>Loading...</>
-      ) : user ? (
-        <div className="flex flex-col gap-2 p-2">
-          <p className="text-xl font-bold">Success!</p>
-          You're logged in as {user.email ?? "anon"}.
-          <button className="btn btn-primary mt-6" onClick={() => logout()}>
-            Log out
+      <div className="flex flex-col justify-center items-center">
+        {/* {signerStatus.isInitializing ? (
+          <>Loading...</>
+        ) : user ? (
+          <div className="flex flex-col gap-2 p-2 mt-10">
+            <p className="text-xl font-bold">Success!</p>
+            You're logged in as {user.email ?? "anon"}.
+            <button className="btn btn-primary mt-6" onClick={() => logout()}>
+              Log out
+            </button>
+          </div>
+        ) : (
+          <button className="btn btn-primary" onClick={openAuthModal}>
+            Login
           </button>
-        </div>
-      ) : (
-        <button className="btn btn-primary" onClick={openAuthModal}>
-          Login
-        </button>
-      )}
-      <MyOpSenderComponent/>
-      <Worldcoin/>
+        )}
+        <MyOpSenderComponent /> */}
+        <Worldcoin/>
       </div>
-    </main>
   );
 }

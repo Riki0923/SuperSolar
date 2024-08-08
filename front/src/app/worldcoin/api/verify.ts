@@ -1,3 +1,4 @@
+// In your `api/verify.ts` file
 "use server";
 
 import { VerificationLevel } from "@worldcoin/idkit-core";
@@ -29,14 +30,14 @@ export async function verify(
 ): Promise<VerifyReply> {
   try {
     const verifyRes = await verifyCloudProof(proof, app_id, action, signal);
-    if (verifyRes.success) {
-      return { success: true };
-    } else {
-      return { success: false, code: verifyRes.code, attribute: verifyRes.attribute, detail: verifyRes.detail };
-    }
+    return {
+      success: verifyRes.success,
+      code: verifyRes.code,
+      attribute: verifyRes.attribute,
+      detail: verifyRes.detail,
+    };
   } catch (error) {
-    // Handle any errors that occur during the verification process
-    console.error("Error verifying proof:", error);
-    return { success: false, detail: "An error occurred during verification." };
+    console.error("Verification error:", error);
+    return { success: false, detail: "Verification error" };
   }
 }
