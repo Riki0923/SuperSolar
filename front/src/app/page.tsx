@@ -4,6 +4,8 @@ import { useAuthModal, useLogout, useSignerStatus, useUser } from "@account-kit/
 import { useEffect } from "react";
 import MyOpSenderComponent from "./userop";
 import Worldcoin from "./worldcoin/page";
+import SunPicture from "./components/SunPicture";
+import Technologies from "./components/technologies";
 
 export default function Home() {
   const user = useUser();
@@ -16,27 +18,19 @@ export default function Home() {
   }, [user]);
 
   return (
-    <div className="flex flex-col justify-center items-center mt-10">
+    <div className="flex flex-col justify-center items-center mt-10 gap-10">
       <div className="text-5xl font-semibold text-semantic-accent-content">
         Welcome to SuperSolar <span className="ml-2">☀️</span>
+        
       </div>
-      {/* {signerStatus.isInitializing ? (
-          <>Loading...</>
-        ) : user ? (
-          <div className="flex flex-col gap-2 p-2 mt-10">
-            <p className="text-xl font-bold">Success!</p>
-            You're logged in as {user.email ?? "anon"}.
-            <button className="btn btn-primary mt-6" onClick={() => logout()}>
-              Log out
-            </button>
-          </div>
-        ) : (
-          <button className="btn btn-primary" onClick={openAuthModal}>
-            Login
-          </button>
-        )}
-        <MyOpSenderComponent /> */}
-      {/* <Worldcoin/> */}
+      <p className="font-semibold">Where users can onboard for free and bring the solar community into Crypto!</p>
+    <SunPicture/>
+    <div className="text-xl font-semibold text-semantic-accent-content flex flex-col justify-centet items-center">Technologies used
+      <div className="flex flex-row justify-center items-center">
+      <Technologies/>
+      </div>
+    </div>
+        {/* <MyOpSenderComponent /> */}
     </div>
   );
 }
