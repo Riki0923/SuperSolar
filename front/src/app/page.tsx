@@ -25,7 +25,7 @@ export default function Home() {
       </div>
       <p className="font-semibold">Where users can onboard for free and bring the solar community into Crypto!</p>
     <SunPicture/>
-    <div className="text-xl font-semibold text-semantic-accent-content flex flex-col justify-centet items-center">Technologies used
+    <div className="text-xl font-semibold text-semantic-accent-content flex flex-col justify-centet items-center">Technologies used:
       <div className="flex flex-row justify-center items-center">
       <Technologies/>
       </div>

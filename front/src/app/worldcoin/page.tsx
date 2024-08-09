@@ -44,7 +44,7 @@ export default function WorldcoinComponent() {
   };
 
   return (
-    <div className="flex flex-row mt-24">
+    <div className="items-center flex justify-center">
       <IDKitWidget
         action={action}
         app_id={app_id}
@@ -53,13 +53,13 @@ export default function WorldcoinComponent() {
         verification_level={VerificationLevel.Device}
       />
 
-      <button
-        className="bg-white text-black font-bold py-2 px-4 rounded-2xl transition duration-300 ease-in-out hover:shadow-2xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50"
-        onClick={() => setOpen(true)}
-
-      >        <WorldcoinIcon/>
-        Verify with World ID
-      </button>
+<button
+  className="bg-white text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:shadow-lg hover:-translate-y-1 active:scale-95 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+  onClick={() => setOpen(true)}
+>
+  <WorldcoinIcon />
+  Verify with World ID
+</button>
     </div>
   );
 }
