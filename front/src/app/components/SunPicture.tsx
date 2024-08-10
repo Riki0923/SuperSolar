@@ -15,7 +15,7 @@ const SunPicutre: React.FC = () => {
 
   const handleVerifyClick = () => {
     if (isLoggedIn) {
-      router.push('components/Verification'); // Navigate to the Verify page
+      router.push('Verification'); // Navigate to the Verify page
     } else {
       alert('You must be logged in to verify yourself.'); // Optionally show a message if not logged in
     }

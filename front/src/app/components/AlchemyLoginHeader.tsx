@@ -8,30 +8,26 @@ import {
   useUser,
 } from "@account-kit/react";
 
-interface AlchemyloginProps {
-  onLoginStatusChange: (loggedIn: boolean) => void;
-}
 
-const Alchemylogin: React.FC<AlchemyloginProps> = ({ onLoginStatusChange }) => {
+const Alchemylogin: React.FC = ( ) => {
   const user = useUser();
   const { openAuthModal } = useAuthModal();
   const signerStatus = useSignerStatus();
   const { logout } = useLogout();
 
-  useEffect(() => {
-    onLoginStatusChange(!!user); // Call the callback with true if user is logged in, otherwise false
-  }, [user, onLoginStatusChange]);
+//   useEffect(() => {
+//     onLoginStatusChange(!!user); // Call the callback with true if user is logged in, otherwise false
+//   }, [user, onLoginStatusChange]);
 
   return (
-    <main className="flex flex-col items-center gap-4 justify-center text-center">
+    <main className="flex flex-row items-center gap-4 justify-center text-center">
       {signerStatus.isInitializing ? (
         <>Loading...</>
       ) : user ? (
-        <div className="flex flex-col gap-2 p-2">
-          <p className="text-xl font-bold">Success!</p>
-          You're logged in as {user.email ?? user.address}.
+        <div className="flex flex-row gap-2 font-semibold">
+          You're logged in as {user.email ?? user.address.slice(0,8)}...
           <button
-            className="btn btn-primary mt-6"
+            className="btn btn-primary -mt-2"
             onClick={() => logout()}
           >
             Log out

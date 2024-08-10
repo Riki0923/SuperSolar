@@ -6,7 +6,7 @@ async function main() {
   console.log("Deploying contracts with the account:", deployer.address);
 
   const Solar = await hre.ethers.getContractFactory("Solar");
-  const solar = await Solar.deploy();
+  const solar = await Solar.deploy(deployer);
 
   console.log("Solar deployed to:", solar.target);
 }

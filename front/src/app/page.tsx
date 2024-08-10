@@ -30,7 +30,6 @@ export default function Home() {
       <Technologies/>
       </div>
     </div>
-        {/* <MyOpSenderComponent /> */}
     </div>
   );
 }

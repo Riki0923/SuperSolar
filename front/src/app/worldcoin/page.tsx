@@ -3,9 +3,13 @@
 import { VerificationLevel, IDKitWidget, useIDKit } from "@worldcoin/idkit";
 import type { ISuccessResult } from "@worldcoin/idkit";
 import { verify } from "../worldcoin/api/verify";
-import  WorldcoinIcon  from "../components/assets/WorldcoinIcon";
+import WorldcoinIcon from "../components/assets/WorldcoinIcon";
 
-export default function WorldcoinComponent() {
+interface WorldcoinComponentProps {
+  onSuccess: () => void;
+}
+
+export default function WorldcoinComponent({ onSuccess }: WorldcoinComponentProps) {
   const app_id = process.env.NEXT_PUBLIC_WLD_APP_ID as `app_${string}`;
   const action = process.env.NEXT_PUBLIC_WLD_ACTION as string;
 
@@ -18,11 +22,13 @@ export default function WorldcoinComponent() {
 
   const { setOpen } = useIDKit();
 
-  const onSuccess = (result: ISuccessResult) => {
+  const handleSuccess = (result: ISuccessResult) => {
     window.alert(
       "Successfully verified with World ID! Your nullifier hash is: " +
         result.nullifier_hash
     );
+
+    onSuccess(); // Trigger the callback passed from the parent component
   };
 
   const handleProof = async (result: ISuccessResult) => {
@@ -48,18 +54,18 @@ export default function WorldcoinComponent() {
       <IDKitWidget
         action={action}
         app_id={app_id}
-        onSuccess={onSuccess}
+        onSuccess={handleSuccess}
         handleVerify={handleProof}
         verification_level={VerificationLevel.Device}
       />
 
-<button
-  className="bg-white text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:shadow-lg hover:-translate-y-1 active:scale-95 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
-  onClick={() => setOpen(true)}
->
-  <WorldcoinIcon />
-  Verify with World ID
-</button>
+      <button
+        className="bg-white text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:shadow-lg hover:-translate-y-1 active:scale-95 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+        onClick={() => setOpen(true)}
+      >
+        <WorldcoinIcon />
+        Verify with World ID
+      </button>
     </div>
   );
 }
