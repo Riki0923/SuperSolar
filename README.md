@@ -24,7 +24,7 @@ NEXT_PUBLIC_WLD_APP_ID=""
 
 NEXT_PUBLIC_WLD_ACTION=""
 
-Deployed contract is: 0x14f4b3232aa3eD2A0F9b5962079B8C4aa552777D
+Deployed contract is: 0xD5A9DB1EdE907c09aE3b5eBC9506Ac4D7dB588e0
 
 It is verified via Blockscout, you can check it on this link: https://base-sepolia.blockscout.com/address/0x14f4b3232aa3eD2A0F9b5962079B8C4aa552777D?tab=contract
 
