@@ -2,7 +2,7 @@ Welcome to SuperSolar ☀️
 Where users can onboard for free and bring the solar community into Crypto!
 
 This application has been built upon the normal solar community system. You can earn onboard users for free and fast with alchemy web3 sdk, also the gas payments are covered via its Gas API and the transaction are bundled for the Light Accounts ( Metamask can also be used ). 
-The application is on the Base Sepolia blockchain, verified in Blockscout, Users can only register via WorldId. This is very important to avoid scammers as we need real verified users for this project. Also users can earn some yield with their solartrades using Superform.
+The application is on the Base Sepolia blockchain, verified in Blockscout, Users can only register via WorldId. This is very important to avoid scammers as we need real verified users for this project. Also users can earn some yield with their solar trades using Superform.
 
 Built by Next.js
 
