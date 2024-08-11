@@ -2,7 +2,7 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import "@nomicfoundation/hardhat-verify";
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY_METAMASK0 || "1cbd3cf2dcf13b0c0dfdf13d1069475cb10cd4fff495a1c67a104f3e4f8e4ef1";
+const PRIVATE_KEY = process.env.PRIVATE_KEY_METAMASK0 || "";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
