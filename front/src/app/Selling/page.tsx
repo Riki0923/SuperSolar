@@ -64,7 +64,7 @@ export default function SellingPage() {
 
             await sendUserOperation({
                 uo: {
-                    target: "0x6cB20DaA9CE443Cb5E7207730db34555EC27364F", // Contract address
+                    target: "0xD5A9DB1EdE907c09aE3b5eBC9506Ac4D7dB588e0", // Contract address
                     data: data,
                 },
             });

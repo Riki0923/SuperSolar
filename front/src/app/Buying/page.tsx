@@ -1,11 +1,16 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ethers } from 'ethers';
+import { ethers, Interface } from 'ethers';
+import {
+  useSendUserOperation,
+  useSmartAccountClient,
+  useUser,
+} from "@account-kit/react";
 import MyContract from '../../../../contracts/artifacts/contracts/Solar.sol/Solar.json';
 import AlchemyloginHeader from '../components/AlchemyloginHeader';
 
-const contractAddress = '0x970030E31F3eb14547410845217f11f5009CAB4a'; // Replace with your contract address
+const contractAddress = '0xD5A9DB1EdE907c09aE3b5eBC9506Ac4D7dB588e0'; // Replace with your contract address
 const abi = MyContract.abi;
 
 export default function Buying() {
@@ -14,6 +19,22 @@ export default function Buying() {
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const user = useUser();
+
+  const { client } = useSmartAccountClient({ type: "LightAccount", policyId: "51dd572f-22f6-4b3d-bfa4-3ffdb4e9571c" });
+
+  const { sendUserOperation, isSendingUserOperation } = useSendUserOperation({
+    client,
+    waitForTxn: true,
+    onSuccess: ({ hash }) => {
+      console.log("Transaction Hash:", hash);
+      alert(`Purchase Succesfull! Your Solar Energy is on the way.  Hash: ${hash}`);
+    },
+    onError: (error) => {
+      console.log("Error:", error);
+      alert('Transaction Failed. Please try again.');
+    },
+  });
 
   useEffect(() => {
     const init = async () => {
@@ -52,9 +73,38 @@ export default function Buying() {
     init();
   }, []);
 
-  const handleBuy = (solarId: number) => {
-    console.log(`Buy button clicked for solarId: ${solarId}`);
-    // Implement your buy functionality here
+  const handleBuy = async (solarId: number, price: bigint) => {
+    if (!user) {
+      console.log('User is not logged in');
+      alert('Please log in before making a purchase.');
+      return;
+    }
+  
+    // Ensure user email is available
+
+  
+    // Log details for debugging
+    console.log(`Initiating purchase for solarId: ${solarId} with price: ${price}`);
+  
+    const iface = new Interface(abi);
+  
+    try {
+      const data = iface.encodeFunctionData("buyEnergy", [solarId]) as `0x${string}`;
+  
+      console.log("Encoded Data:", data); // Log encoded data for debugging
+  
+      // Convert price to bigint and send User Operation
+      sendUserOperation({
+        uo: {
+          target: contractAddress,
+          data: data,
+          value: price, // Ensure price is passed as bigint
+        },
+      });
+    } catch (error) {
+      console.error("Error encoding function data:", error);
+      alert('Failed to prepare the User Operation.');
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -114,7 +164,7 @@ export default function Buying() {
                     Grid Status: {energy.gridStatus === 0 ? 'Connected Without Permission' : 'Connected With Permission'}
                   </div>
                   <button
-                    onClick={() => handleBuy(energy.solarId)}
+                    onClick={() => handleBuy(energy.solarId, energy.price)}
                     className='
                       bg-white 
                       text-black 
@@ -123,15 +173,16 @@ export default function Buying() {
                       px-4 
                       py-2 
                       rounded 
-                      hover:bg-black 
+                      hover:bg-orange-500 
                       hover:text-white 
                       active:scale-95 
                       transition 
                       duration-200 
                       ease-in-out
                     '
+                    disabled={isSendingUserOperation} // Disable button while operation is sending
                   >
-                    Buy
+                    {isSendingUserOperation ? "Processing..." : "Buy"}
                   </button>
                 </div>
               </div>

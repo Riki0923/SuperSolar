@@ -22,9 +22,9 @@ async function main() {
     const gridStatus0 = 1; // ConnectedWithPermission
 
     // Define registration parameters for account 1 (Buyer)
-    const fullName1 = "Jane Smith";
-    const email1 = "jane.smith@example.com";
-    const country1 = "USA";
+    const fullName1 = "Krisztian Barta";
+    const email1 = "mudipoker@gmail.com";
+    const country1 = "Germany";
     const userRole1 = 1; // Buyer
     const solarCapacity1 = 0; // Not needed for Buyer
     const gridStatus1 = 0; // Not needed for Buyer

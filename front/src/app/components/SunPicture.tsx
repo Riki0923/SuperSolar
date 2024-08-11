@@ -22,7 +22,7 @@ const SunPicutre: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center border border-gray-300 rounded-lg shadow-lg bg-white max-w-sm gap-4">
+    <div className="flex flex-col justify-center items-center border border-gray-300 rounded-lg shadow-lg bg-white max-w-md gap-4">
       <Image src={SunPicture} alt="Placeholder Image" className="w-full h-auto rounded mb-4" />
       <Alchemylogin onLoginStatusChange={handleLoginStatusChange}/>
       <button 

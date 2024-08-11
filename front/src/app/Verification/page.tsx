@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Import useRouter
+import { useRouter } from 'next/navigation';
 import {
   useSendUserOperation,
   useSmartAccountClient,
@@ -84,7 +84,7 @@ export default function Verification() {
   
       sendUserOperation({
         uo: {
-          target: "0x6cB20DaA9CE443Cb5E7207730db34555EC27364F",
+          target: "0xD5A9DB1EdE907c09aE3b5eBC9506Ac4D7dB588e0",
           data: data,
         },
       });
@@ -95,37 +95,37 @@ export default function Verification() {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center gap-10 mt-10'>
-                {/* Header */}
-                <div className="relative w-full flex items-center p-4">
-  <div className="text-4xl italic font-bold text-gray-800 absolute left-16 top-8">
-    🌞 SuperSolar
-  </div>
-  <div className='flex-1 flex justify-end'>
-    <AlchemyloginHeader/>
-  </div>
-</div>
-      <div className='text-3xl font-semibold text-semantic-accent-content'>Registration</div>
-      <div className='text-xl font-semibold'>Step 1:</div>
-      <div className="p-6 bg-gray-100 rounded-lg shadow-lg">
-        <p className="text-gray-800 mb-6 font-semibold">
+    <div className='flex flex-col justify-center items-center gap-10 mt-10 bg-gray-50 min-h-screen'>
+      {/* Header */}
+      <div className="relative w-full flex items-center p-4">
+        <div className="text-4xl italic font-bold text-gray-800 absolute left-16 top-8">
+          🌞 SuperSolar
+        </div>
+        <div className='flex-1 flex justify-end'>
+          <AlchemyloginHeader />
+        </div>
+      </div>
+      <div className='text-3xl font-semibold text-gray-900 mb-4'>Registration</div>
+      <div className='text-xl font-semibold mb-2'>Step 1:</div>
+      <div className="p-6 bg-white rounded-lg shadow-lg max-w-4xl mx-auto">
+        <p className="text-gray-700 mb-6 font-semibold">
           To join SuperSolar you must verify yourself with WorldId
         </p>
         <WorldcoinComponent onSuccess={handleVerificationSuccess} />
       </div>
-      <div className='text-xl font-semibold'>Step 2:</div>
-      <div className='text-xl font-semibold'>Registration form</div>
+      <div className='text-xl font-semibold mt-8 mb-2'>Step 2:</div>
+      <div className='text-xl font-semibold mb-4'>Registration Form</div>
 
-      <div className='w-1/2'>
+      <div className='w-full max-w-lg space-y-4'>
         <input
-          className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+          className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2'
           placeholder='Full Name'
           name='fullName'
           value={formData.fullName}
           onChange={handleChange}
         />
         <input
-          className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+          className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2'
           placeholder='Country'
           name='country'
           value={formData.country}
@@ -133,14 +133,14 @@ export default function Verification() {
         />
         <input
           type='number'
-          className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+          className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2'
           placeholder='Solar Capacity (kW)'
           name='solarCapacity'
           value={formData.solarCapacity}
           onChange={handleChange}
         />
         <select
-          className='form-select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+          className='form-select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2'
           name='gridStatus'
           value={formData.gridStatus}
           onChange={handleChange}
@@ -151,12 +151,12 @@ export default function Verification() {
       </div>
 
       <button
-        className={`btn btn-content ${!isVerified || isSendingUserOperation ? 'opacity-50 cursor-not-allowed' : ''}`}
-        disabled={!isVerified || isSendingUserOperation}
-        onClick={handleSubmit}
-      >
-        {isSendingUserOperation ? "Sending..." : "Register"}
-      </button>
+  className={`mt-6 px-6 py-3 rounded-md border border-black text-black font-semibold transition-transform duration-300 ease-in-out hover:bg-black hover:text-white hover:translate-y-[-2px] active:scale-95 ${isSendingUserOperation ? 'opacity-50 cursor-not-allowed' : ''}`}
+  disabled={isSendingUserOperation}
+  onClick={handleSubmit}
+>
+  {isSendingUserOperation ? "Sending..." : "Register"}
+</button>
     </div>
   );
 }

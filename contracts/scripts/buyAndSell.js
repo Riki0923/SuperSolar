@@ -14,7 +14,7 @@ async function main() {
     const buyerWallet = new ethers.Wallet(PRIVATE_KEY_METAMASK1, ethers.provider);
 
     // Define the amount and price for selling energy
-    const amount = 3; // 3 kWh
+    const amount = 1; // 3 kWh
     const price = ethers.parseUnits("0.001", "ether"); // 0.001 Ether
 
     // Check seller balance before the transaction
