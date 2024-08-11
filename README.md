@@ -11,13 +11,17 @@ How to set up dev environment:
 1. run npm i both in the contracts and frontend part of the code
 contract .env file ( if you want to use 2 metamask account to try the functions )
 ALCHEMY_BASE_SEPOLIA_URL=""
+
 PRIVATE_KEY_METAMASK0=""
+
 PRIVATE_KEY_METAMASK1=""
+
 SOLAR_CONTRACT_ADDRESS=""
 
 contract env file for frontend: (You need to setup your own worldcoin app for this )
 
 NEXT_PUBLIC_WLD_APP_ID=""
+
 NEXT_PUBLIC_WLD_ACTION=""
 
 Deployed contract is: 0x14f4b3232aa3eD2A0F9b5962079B8C4aa552777D
