@@ -2,8 +2,11 @@
 pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./Vault.sol"; // Import the Vault contract
 
 contract Solar is Ownable {
+
+    SolarTokenVault public vault;
 
     uint256 solarId;
     uint256 nextTransactionId;
@@ -25,14 +28,14 @@ contract Solar is Ownable {
     }
 
     struct SolarEnergy {
-        uint256 solarId; // Unique identifier for each transaction
-        address seller; // Seller of the energy
+        uint256 solarId;
+        address seller;
         string sellerName;
         string sellerEmail;
         string sellerCountry;
-        address buyer; // Buyer of the energy
-        uint256 amount; // in kWh
-        uint256 price;  // price in wei
+        address buyer;
+        uint256 amount;
+        uint256 price;
         bool isSold;
     }
 
@@ -49,7 +52,9 @@ contract Solar is Ownable {
     event EnergySold(uint256 indexed solarId, address indexed seller, uint256 price);
     event EnergyBought(uint256 indexed solarId, address indexed buyer, uint256 price);
 
-    constructor(address initialOwner) Ownable(initialOwner) {}
+    constructor(address initialOwner, address vaultAddress) Ownable(initialOwner) {
+        vault = SolarTokenVault(vaultAddress); // Initialize the vault
+    }
 
     function register(
         string memory _fullName,
@@ -75,7 +80,7 @@ contract Solar is Ownable {
 
         userRegistered[msg.sender] = true;
         addressId[solarId] = msg.sender;
-        userSolarId[msg.sender] = solarId; 
+        userSolarId[msg.sender] = solarId;
         emit Registered(solarId, msg.sender);
 
         solarId++;
@@ -100,51 +105,52 @@ contract Solar is Ownable {
         revert("User not found");
     }
 
-function sellEnergy(
-    uint256 _amount, // in kWh
-    uint256 _price // price in wei
-) public returns (uint256) {
-    require(userRegistered[msg.sender], "Seller not registered");
+    function sellEnergy(
+        uint256 _amount, // in kWh
+        uint256 _price // price in wei (or smallest unit of SolarToken)
+    ) public returns (uint256) {
+        require(userRegistered[msg.sender], "Seller not registered");
 
-    uint256 txId = nextTransactionId++;
+        uint256 txId = nextTransactionId++;
 
-    // Fetch seller's solarId
-    uint256 sellerSolarId = userSolarId[msg.sender];
-    
-    // Fetch seller details from registration
-    Registration storage sellerRegistration = registrations[sellerSolarId];
-    
-    // Create new SolarEnergy entry
-    SolarEnergy memory newEnergy = SolarEnergy({
-        solarId: txId,
-        seller: msg.sender,
-        sellerName: sellerRegistration.fullName,
-        sellerEmail: sellerRegistration.email,
-        sellerCountry: sellerRegistration.country,
-        buyer: address(0), // Initially no buyer
-        amount: _amount,
-        price: _price,
-        isSold: false
-    });
+        uint256 sellerSolarId = userSolarId[msg.sender];
+        Registration storage sellerRegistration = registrations[sellerSolarId];
+        
+        SolarEnergy memory newEnergy = SolarEnergy({
+            solarId: txId,
+            seller: msg.sender,
+            sellerName: sellerRegistration.fullName,
+            sellerEmail: sellerRegistration.email,
+            sellerCountry: sellerRegistration.country,
+            buyer: address(0),
+            amount: _amount,
+            price: _price,
+            isSold: false
+        });
 
-    solarEnergies.push(newEnergy);
-    solarEnergyById[txId] = newEnergy;
+        solarEnergies.push(newEnergy);
+        solarEnergyById[txId] = newEnergy;
 
-    emit EnergySold(txId, msg.sender, _price);
+        emit EnergySold(txId, msg.sender, _price);
 
-    return txId;
-}
+        return txId;
+    }
 
-    function buyEnergy(uint256 _solarId) public payable {
-        SolarEnergy storage energy = solarEnergyById[_solarId]; // Access the energy in storage
+    function buyEnergy(uint256 _solarId) public {
+        SolarEnergy storage energy = solarEnergyById[_solarId];
         require(energy.solarId == _solarId, "Energy not found");
         require(!energy.isSold, "Energy already sold");
         require(userRegistered[msg.sender], "Buyer not registered");
-        require(msg.value == energy.price, "Incorrect payment amount");
+        require(vault.balanceOf(msg.sender) >= energy.price, "Insufficient token balance");
 
-        // Mark the energy as sold in the mapping
+        // Transfer tokens from buyer to vault
+        require(vault.transferFrom(msg.sender, address(vault), energy.price), "Token transfer failed");
+
         energy.buyer = msg.sender;
         energy.isSold = true;
+
+        // Add buyer to the list of shareholders in the vault
+        vault.addShareholder(msg.sender);
 
         // Update the solarEnergies array as well
         for (uint256 i = 0; i < solarEnergies.length; i++) {
@@ -155,10 +161,7 @@ function sellEnergy(
             }
         }
 
-        // Transfer the payment to the seller
-        payable(energy.seller).transfer(msg.value);
-
-        emit EnergyBought(_solarId, msg.sender, msg.value);
+        emit EnergyBought(_solarId, msg.sender, energy.price);
     }
 
     function getSolarEnergies() public view returns(SolarEnergy[] memory){
