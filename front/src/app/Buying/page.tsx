@@ -8,7 +8,7 @@ import {
   useUser,
 } from "@account-kit/react";
 import MyContract from '../../../../contracts/artifacts/contracts/Solar.sol/Solar.json';
-import AlchemyloginHeader from '../components/AlchemyloginHeader';
+import AlchemyloginHeader from '../components/AlchemyLoginHeader';
 
 const contractAddress = '0xD5A9DB1EdE907c09aE3b5eBC9506Ac4D7dB588e0'; // Replace with your contract address
 const abi = MyContract.abi;

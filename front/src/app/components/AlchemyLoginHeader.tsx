@@ -9,7 +9,7 @@ import {
 } from "@account-kit/react";
 
 
-const Alchemylogin: React.FC = ( ) => {
+const AlchemyloginHeader: React.FC = ( ) => {
   const user = useUser();
   const { openAuthModal } = useAuthModal();
   const signerStatus = useSignerStatus();
@@ -42,4 +42,4 @@ const Alchemylogin: React.FC = ( ) => {
   );
 };
 
-export default Alchemylogin;
+export default AlchemyloginHeader;

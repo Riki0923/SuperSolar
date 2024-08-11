@@ -5,7 +5,7 @@ import { parseEther } from 'ethers';
 import { useSendUserOperation, useSmartAccountClient, useUser } from "@account-kit/react";
 import MyContract from '../../../../contracts/artifacts/contracts/Solar.sol/Solar.json';
 import { Interface } from 'ethers';
-import AlchemyloginHeader from '../components/AlchemyloginHeader';
+import AlchemyloginHeader from '../components/AlchemyLoginHeader';
 
 export default function SellingPage() {
 

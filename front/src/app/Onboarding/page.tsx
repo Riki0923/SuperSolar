@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import Sunsky from '../components/assets/pictures/Sunny.jpg'; // Adjust the path as needed
 import { useRouter } from 'next/navigation';
-import AlchemyloginHeader from '../components/AlchemyloginHeader';
+import AlchemyloginHeader from '../components/AlchemyLoginHeader';
 import { useSendUserOperation, useSmartAccountClient, useUser } from "@account-kit/react";
 
 export default function Onboarding() {

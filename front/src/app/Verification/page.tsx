@@ -9,7 +9,7 @@ import {
 import { Interface } from "ethers";
 import WorldcoinComponent from '../worldcoin/page';
 import MyContract from '../../../../contracts/artifacts/contracts/Solar.sol/Solar.json';
-import AlchemyloginHeader from '../components/AlchemyloginHeader';
+import AlchemyloginHeader from '../components/AlchemyLoginHeader';
 
 export default function Verification() {
   const router = useRouter(); // Initialize router for navigation
